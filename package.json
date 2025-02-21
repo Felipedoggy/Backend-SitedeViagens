@@ -1,0 +1,30 @@
+{
+  "name": "atividadebackent",
+  "version": "1.0.0",
+  "description": "atividade backend para controle de dados de um site de pacote de viagens",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipedoggy/Backend-SitedeViagens.git"
+  },
+  "keywords": [
+    "node",
+    "backend",
+    "API",
+    "Servidor"
+  ],
+  "author": "Felipe Prado Curcci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Felipedoggy/Backend-SitedeViagens/issues"
+  },
+  "homepage": "https://github.com/Felipedoggy/Backend-SitedeViagens#readme",
+  "dependencies": {
+    "mysql2": "^3.12.0"
+  }
+}
