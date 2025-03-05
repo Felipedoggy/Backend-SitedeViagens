@@ -113,19 +113,26 @@ export default class PacoteViagem {
     }
     async criar() {
         const pacoteDB = new PacoteViagemDB();
-        await pacoteDB.criar(this);
+        this.id = await pacoteDB.criar(this);
     }
     async alterar() {
         const pacoteDB = new PacoteViagemDB();
         await pacoteDB.alterar(this);
     }
-    async excluir() {
+    async excluirPacote() {
         const pacoteDB = new PacoteViagemDB();
-        await pacoteDB.excluir(this.#id);
+        await pacoteDB.excluirPacote(this);
     }
 
-    async ListarPacote() {
+    async consultar() {
         const pacoteDB = new PacoteViagemDB();
-        return await pacoteDB.ListarPacotes();
+        const pacotes = await pacoteDB.consultar();
+        return pacotes;
+    }
+
+    async buscarPorId(id) {
+        const pacoteDB = new PacoteViagemDB();
+        const pacotes = await pacoteDB.buscarPorId(id);
+        return pacotes;
     }
 }

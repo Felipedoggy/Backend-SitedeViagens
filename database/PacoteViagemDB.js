@@ -35,9 +35,10 @@ async criar(pacote) {
             const conexao = await conectar();
             const sql = `INSERT INTO pacotes_viagens (name, departure, destination, price, description, duration, departureLocation, availableSpots, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             const parametros = [pacote.name, pacote.departure, pacote.destination, pacote.price, pacote.description, pacote.duration, pacote.departureLocation, pacote.availableSpots, pacote.image];
-            await conexao.execute(sql, parametros);
-            conexao.release();
+            const resultado = await conexao.execute(sql, parametros);
+            return resultado[0].insertId;
         }
+        
     }
 async alterar(pacote) {
         if (pacote instanceof PacoteViagem) {
@@ -51,14 +52,17 @@ async alterar(pacote) {
     
 
 
-async excluir(id) {
+async excluirPacote(pacote) {
+    if (pacote instanceof PacoteViagem) {
         const conexao = await conectar();
         const sql = `DELETE FROM pacotes_viagens WHERE id = ?`;
-        await conexao.execute(sql, [id]);
+        const parametros = [pacote.id];
+        await conexao.execute(sql, parametros);
         conexao.release();
     }
+    }
 
-    async ListarPacotes() {
+    async consultar(termo) {
         const conexao = await conectar();
         const sql = `SELECT * FROM pacotes_viagens ORDER BY id`;
         const [pacotes] = await conexao.execute(sql);
@@ -69,6 +73,19 @@ async excluir(id) {
             listaPacotes.push(pacote);
         }
         return listaPacotes;
+    }
+
+    async buscarPorId(id) {
+        const conexao = await conectar();
+        const sql = `SELECT * FROM pacotes_viagens WHERE id = ?`;
+        const [pacotes] = await conexao.execute(sql, [id]);
+        conexao.release();
+        if (pacotes.length > 0) {
+            const pacoteID = pacotes[0];
+            const pacote = new PacoteViagem(pacoteID.id, pacoteID.name, pacoteID.departure, pacoteID.destination, pacoteID.price, pacoteID.description, pacoteID.duration, pacoteID.departureLocation, pacoteID.availableSpots, pacoteID.image);
+            return pacote;
+        }
+        return null;
     }
 
 }
