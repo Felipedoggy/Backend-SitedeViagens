@@ -20,7 +20,7 @@ async init() {
             duration VARCHAR(50) NOT NULL,
             departureLocation VARCHAR(100) NOT NULL,
             availableSpots INT NOT NULL,
-            image VARCHAR(100) NOT NULL
+            image LONGTEXT NOT NULL
         )`;
         await conexao.execute(sql);
     }

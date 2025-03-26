@@ -129,8 +129,13 @@ consultar(requisicao, resposta) {
     if(requisicao.method === 'GET') {
 
       const pacote = new Pacote();
-            pacote.consultar('').then((pacotes) => {
-                resposta.status(201).json(pacotes);
+            pacote.consultar('').then((listaPacotes) => {
+                resposta.status(200).json(
+                    {
+                        status: true,
+                        pacotes: listaPacotes
+                    }
+                );
             }).catch(erro => {
                 resposta.status(500).json({
                     status: false,
